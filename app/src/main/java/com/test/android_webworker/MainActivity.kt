@@ -1,16 +1,13 @@
 package com.test.android_webworker
 
 import android.annotation.SuppressLint
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.webkit.WebViewAssetLoader
-import androidx.webkit.WebViewClientCompat
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -35,23 +32,5 @@ class MainActivity : AppCompatActivity() {
         webView.settings.javaScriptEnabled = true
 
         webView.loadUrl("https://appassets.androidplatform.net/assets/index.html")
-    }
-}
-
-private class LocalContentWebViewClient(private val assetLoader: WebViewAssetLoader) : WebViewClientCompat() {
-    @RequiresApi(21)
-    override fun shouldInterceptRequest(
-        view: WebView,
-        request: WebResourceRequest
-    ): WebResourceResponse? {
-        return assetLoader.shouldInterceptRequest(request.url)
-    }
-
-    // to support API < 21
-    override fun shouldInterceptRequest(
-        view: WebView,
-        url: String
-    ): WebResourceResponse? {
-        return assetLoader.shouldInterceptRequest(Uri.parse(url))
     }
 }
